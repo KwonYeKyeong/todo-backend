@@ -1,0 +1,21 @@
+### get cards
+GET /todo/cards HTTP/1.1
+Host: localhost:8088
+
+### create card
+POST /todo/cards
+Content-Type: application/json; charset=utf-8
+Host: localhost:8088
+
+{
+  "title": "study react1"
+}
+
+### update card
+PUT /todo/cards/1
+Content-Type: application/json; charset=utf-8
+Host: localhost:8088
+
+{
+  "status": "DONE"
+}
