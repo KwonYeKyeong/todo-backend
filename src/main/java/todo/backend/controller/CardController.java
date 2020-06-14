@@ -19,27 +19,29 @@ import todo.backend.service.CardService;
 @RequestMapping("/todo/cards")
 public class CardController {
 
-    private final CardService cardService;
+	private final CardService cardService;
 
-    public CardController(CardService cardService) {this.cardService = cardService;}
+	public CardController(CardService cardService) {
+		this.cardService = cardService;
+	}
 
-    @GetMapping("")
-    @ResponseStatus(HttpStatus.OK)
-    public List<Card> getCards() {
-        return cardService.getCards();
-    }
+	@GetMapping("")
+	@ResponseStatus(HttpStatus.OK)
+	public List<Card> getCards() {
+		return cardService.getCards();
+	}
 
-    @PostMapping("")
-    @ResponseStatus(HttpStatus.CREATED)
-    public Card createCard(@RequestBody Card card) {
-        return cardService.createCard(card);
-    }
+	@PostMapping("")
+	@ResponseStatus(HttpStatus.CREATED)
+	public Card createCard(@RequestBody Card card) {
+		return cardService.createCard(card);
+	}
 
-    @PutMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public Card updateCard(@PathVariable Long id, @RequestBody Card card) {
-        return cardService.updateCard(id, card);
-    }
+	@PutMapping("/{id}")
+	@ResponseStatus(HttpStatus.OK)
+	public Card updateCard(@PathVariable Long id, @RequestBody Card card) {
+		return cardService.updateCard(id, card);
+	}
 
-    // TODO: implement - delete card
+	// TODO: implement - delete card
 }
