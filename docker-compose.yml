@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: todolist
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_RANDOM_ROOT_PASSWORD=yes
+      - MYSQL_USER=todo
+      - MYSQL_PASSWORD=todo
+      - MYSQL_DATABASE=todolist
+    volumes:
+      - "./conf.d:/etc/mysql/conf.d:ro"
