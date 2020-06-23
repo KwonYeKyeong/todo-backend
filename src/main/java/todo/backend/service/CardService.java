@@ -25,4 +25,8 @@ public class CardService {
 	public Card updateCard(Long id, Card card) {
 		return cardRepository.update(id, card);
 	}
+
+	public void deleteCard(Long id) {
+		cardRepository.deleteById(id);
+	}
 }

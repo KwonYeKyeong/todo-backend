@@ -38,4 +38,13 @@ public class CardRepository {
 		return savedCard;
 	}
 
+	public void deleteById(Long id) {
+		if (!cachedCards.containsKey(id)) {
+			throw new RuntimeException(
+				String.format("card[id:%d] does not exits.", id)
+			);
+		}
+
+		cachedCards.remove(id);
+	}
 }

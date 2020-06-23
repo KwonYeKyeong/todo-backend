@@ -19,3 +19,7 @@ Host: localhost:8088
 {
   "status": "DONE"
 }
+
+### delete card
+DELETE /todo/cards/1
+Host: localhost:8088
