@@ -8,7 +8,8 @@ Content-Type: application/json; charset=utf-8
 Host: localhost:8088
 
 {
-  "title": "study react1"
+  "title": "study react1",
+  "assignee": "Kim"
 }
 
 ### update card
