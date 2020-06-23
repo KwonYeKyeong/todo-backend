@@ -15,7 +15,7 @@ public class CardService {
 	private final CardRepository cardRepository;
 
 	public List<Card> getCards() {
-		return cardRepository.findAll();
+		return cardRepository.findAllOrderByPriorityAsc();
 	}
 
 	public Card createCard(Card card) {

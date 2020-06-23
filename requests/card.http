@@ -9,7 +9,8 @@ Host: localhost:8088
 
 {
   "title": "study react1",
-  "assignee": "Kim"
+  "assignee": "Kim",
+  "priority": 1
 }
 
 ### update card

@@ -11,8 +11,7 @@ public class Card {
 	private String title;
 	private String assignee;
 	private CardStatus status;
+	private Integer priority;
 
 	// TODO: add created, updated
-	// TODO: add order
-
 }

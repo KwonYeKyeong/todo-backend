@@ -1,9 +1,11 @@
 package todo.backend.repository;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
@@ -17,6 +19,12 @@ public class CardRepository {
 
 	public List<Card> findAll() {
 		return new ArrayList<>(cachedCards.values());
+	}
+
+	public List<Card> findAllOrderByPriorityAsc() {
+		return findAll().stream()
+			.sorted(Comparator.comparingInt(Card::getPriority))
+			.collect(Collectors.toList());
 	}
 
 	public Card save(Card card) {
