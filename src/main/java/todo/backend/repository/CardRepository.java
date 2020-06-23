@@ -27,24 +27,17 @@ public class CardRepository {
 	}
 
 	public Card update(Long id, Card card) {
-		if (!cachedCards.containsKey(id)) {
-			throw new RuntimeException(
-				String.format("card[id:%d] does not exits.", id)
-			);
-		}
-
 		Card savedCard = cachedCards.get(id);
 		savedCard.setStatus(card.getStatus());
 		return savedCard;
 	}
 
 	public void deleteById(Long id) {
-		if (!cachedCards.containsKey(id)) {
-			throw new RuntimeException(
-				String.format("card[id:%d] does not exits.", id)
-			);
-		}
-
 		cachedCards.remove(id);
 	}
+
+	public boolean doesCardExist(Long id) {
+		return cachedCards.containsKey(id);
+	}
+
 }

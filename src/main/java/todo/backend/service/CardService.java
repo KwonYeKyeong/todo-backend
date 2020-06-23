@@ -23,10 +23,22 @@ public class CardService {
 	}
 
 	public Card updateCard(Long id, Card card) {
+		validateCardOrThrow(id);
+
 		return cardRepository.update(id, card);
 	}
 
 	public void deleteCard(Long id) {
+		validateCardOrThrow(id);
+
 		cardRepository.deleteById(id);
+	}
+
+	private void validateCardOrThrow(Long id) {
+		if (!cardRepository.doesCardExist(id)) {
+			throw new RuntimeException(
+				String.format("card[id:%d] does not exits.", id)
+			);
+		}
 	}
 }
