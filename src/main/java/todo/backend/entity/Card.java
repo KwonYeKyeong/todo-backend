@@ -1,5 +1,7 @@
 package todo.backend.entity;
 
+import java.time.LocalDate;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,6 +14,7 @@ public class Card {
 	private String assignee;
 	private CardStatus status;
 	private Integer priority;
+	private LocalDate created = LocalDate.now();
 
-	// TODO: add created, updated
+	// TODO: add updated
 }
