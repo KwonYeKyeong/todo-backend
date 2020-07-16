@@ -30,6 +30,12 @@ public class CardController {
 		return cardService.getCards();
 	}
 
+	@GetMapping("/{id}")
+	@ResponseStatus(HttpStatus.OK)
+	public Card getCard(@PathVariable Long id) {
+		return cardService.getCard(id);
+	}
+
 	@PostMapping("")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Card createCard(@RequestBody Card card) {

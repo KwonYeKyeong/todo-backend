@@ -17,6 +17,10 @@ public class CardRepository {
 
 	private final Map<Long, Card> cachedCards = new HashMap<>();
 
+	public Card findById(Long id) {
+		return cachedCards.get(id);
+	}
+
 	public List<Card> findAll() {
 		return new ArrayList<>(cachedCards.values());
 	}

@@ -14,6 +14,13 @@ public class CardService {
 
 	private final CardRepository cardRepository;
 
+
+	public Card getCard(Long id) {
+		validateCardOrThrow(id);
+
+		return cardRepository.findById(id);
+	}
+
 	public List<Card> getCards() {
 		return cardRepository.findAllOrderByPriorityAsc();
 	}
