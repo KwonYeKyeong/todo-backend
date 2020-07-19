@@ -2,6 +2,8 @@ package todo.backend.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,7 +40,7 @@ public class CardController {
 
 	@PostMapping("")
 	@ResponseStatus(HttpStatus.CREATED)
-	public Card createCard(@RequestBody Card card) {
+	public Card createCard(@RequestBody @Valid Card card) {
 		return cardService.createCard(card);
 	}
 
