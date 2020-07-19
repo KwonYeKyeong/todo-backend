@@ -38,4 +38,7 @@ public class CardRepository {
 		return savedCard;
 	}
 
+	public void delete(Long id) {
+		cachedCards.remove(id);
+	}
 }

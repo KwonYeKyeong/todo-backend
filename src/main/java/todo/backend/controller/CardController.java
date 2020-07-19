@@ -1,19 +1,11 @@
 package todo.backend.controller;
 
-import java.util.List;
-
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
 import todo.backend.entity.Card;
 import todo.backend.service.CardService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/todo/cards")
@@ -44,4 +36,9 @@ public class CardController {
 	}
 
 	// TODO: implement - delete card
+	@DeleteMapping("/{id}")
+	@ResponseStatus(HttpStatus.OK)
+	public void updateCard(@PathVariable Long id) {
+		cardService.deleteCard(id);
+	}
 }
