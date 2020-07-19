@@ -1,12 +1,20 @@
 package todo.backend.entity;
 
+import java.time.LocalDate;
+
 public class Card {
 
 	private Long id;
 
 	private String title;
 
+	private String assignee;
+
 	private CardStatus status;
+
+	private Integer priority;
+
+	private LocalDate created = LocalDate.now();
 
 	// TODO: add created, updated
 	// TODO: add order
@@ -34,4 +42,16 @@ public class Card {
 	public void setStatus(CardStatus status) {
 		this.status = status;
 	}
+
+	public String getAssignee() { return assignee; }
+
+	public void setAssignee(String assignee) { this.assignee = assignee; }
+
+	public Integer getPriority() { return priority; }
+
+	public void setPriority(Integer priority) { this.priority = priority; }
+
+	public LocalDate getCreated() { return created; }
+
+	public void setCreated(LocalDate created) { this.created = created; }
 }
