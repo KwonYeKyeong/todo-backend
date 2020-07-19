@@ -40,5 +40,6 @@ public class CardController {
 	@ResponseStatus(HttpStatus.OK)
 	public void updateCard(@PathVariable Long id) {
 		cardService.deleteCard(id);
+		//
 	}
 }
