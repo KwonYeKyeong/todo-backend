@@ -1,11 +1,15 @@
 package todo.backend.entity;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
-public class Card {
+public class Card implements Comparable{
 
 	private Long id;
 
+	@NotBlank
+	@Size(max=20)
 	private String title;
 
 	private String assignee;
@@ -54,4 +58,9 @@ public class Card {
 	public LocalDate getCreated() { return created; }
 
 	public void setCreated(LocalDate created) { this.created = created; }
+
+	@Override
+	public int compareTo(Object o) {
+		return this.getPriority().compareTo(((Card)o).getPriority());
+	}
 }

@@ -14,11 +14,11 @@ public class CardRepository {
 	private final Map<Long, Card> cachedCards = new HashMap<>();
 
 	public List<Card> findAll() {
-		//List<Long> cardList = new ArrayList<>(cachedCards.keySet());
+		Collection<Card> cards = cachedCards.values();
+		List<Card> list = new ArrayList<>(cards);
+		Collections.sort(list, Card::compareTo);
 
-		//Collections.sort(cardList, (o1, o2) -> (cachedCards.get(o1).getPriority().compareTo(cachedCards.get(o2).getPriority())));
-
-		return new ArrayList<>(cachedCards.values());
+		return list;
 	}
 
 	public Card save(Card card) {
@@ -27,7 +27,6 @@ public class CardRepository {
 		card.setStatus(CardStatus.TODO);
 
 		return cachedCards.put(id, card);
-
 	}
 
 	public Card update(Long id, Card card) {

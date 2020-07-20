@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import todo.backend.entity.Card;
 import todo.backend.service.CardService;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/todo/cards")
 public class CardController {
@@ -26,7 +28,7 @@ public class CardController {
 
 	@PostMapping("")
 	@ResponseStatus(HttpStatus.CREATED)
-	public Card createCard(@RequestBody Card card) {
+	public Card createCard(@RequestBody @Valid Card card) {
 		return cardService.createCard(card);
 	}
 
