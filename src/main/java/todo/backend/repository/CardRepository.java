@@ -4,13 +4,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Collections;
 import java.util.Comparator;
 
 
 import org.springframework.stereotype.Component;
 
-import springfox.documentation.schema.Entry;
 import todo.backend.entity.Card;
 import todo.backend.entity.CardStatus;
 
@@ -27,11 +25,12 @@ public class CardRepository {
 		cardList.sort(new Comparator<Card>(){
 			@Override
 			public int compare(Card arg1, Card arg2){
-				int age1=arg1.getPriority();
-				int age2=arg2.getPriority();
+				int pri1=arg1.getPriority();
+				int pri2=arg2.getPriority();
 
-				if(age1==age2) return 0;
-				else if(age1>age1)return 1;
+
+				if(pri1==pri2) return 0;
+				else if(pri1>pri2)return 1;
 				else return -1;
 			}
 		});
