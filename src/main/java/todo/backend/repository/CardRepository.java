@@ -19,22 +19,26 @@ public class CardRepository {
 
 	private final Map<Long, Card> cachedCards = new HashMap<>();
 
+
 	public List<Card> findAll() {
-		/*List<Entry<Long, Card>> list_cachedCards=new ArrayList<Entry<Long, Card>>(cachedCards.entrySet());
-		Collections.sort(list_cachedCards, new Comparator<Entry<Long,Card>>(){
-			public int compare(Entry<Long, Card> obj1, Entry<Long,Card> obj2){
-				return obj1.getValue().compareTo(obj2.getValue());
+
+		List<Card> cardList=new ArrayList<>(cachedCards.values());
+		System.out.println(cardList);
+		cardList.sort(new Comparator<Card>(){
+			@Override
+			public int compare(Card arg1, Card arg2){
+				int age1=arg1.getPriority();
+				int age2=arg2.getPriority();
+
+				if(age1==age2) return 0;
+				else if(age1>age1)return 1;
+				else return -1;
 			}
 		});
-	}
-		/*List <Card> cachedCardsList=new ArrayList<>(cachedCards.keySet());
-		Collections.sort(cachedCardsList, new Comparator(){
-			@Override
-			public int compare(Card c1, Card c2){
-				return c1.getPriority().compareTo(c2.getPriority());
-			}
-		});*/
-		return new ArrayList<>(cachedCards.values());
+
+		return cardList;
+
+		//return new ArrayList<>(cachedCards.values());
 
 	}
 
@@ -53,6 +57,7 @@ public class CardRepository {
 		}
 	}
 
+
 	public Card update(Long id, Card card) {
 		if (!cachedCards.containsKey(id)) {
 			throw new RuntimeException(
@@ -63,6 +68,7 @@ public class CardRepository {
 		savedCard.setStatus(card.getStatus());
 		return savedCard;
 	}
+
 	public void delete(Long id){
 		if (!cachedCards.containsKey(id)) {
 			throw new RuntimeException(
