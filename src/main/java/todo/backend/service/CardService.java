@@ -1,21 +1,17 @@
 package todo.backend.service;
 
-import java.util.List;
-
-import org.apache.catalina.filters.AddDefaultCharsetFilter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import todo.backend.entity.Card;
 import todo.backend.repository.CardRepository;
 
+import java.util.List;
+
+@RequiredArgsConstructor
 @Service
 public class CardService {
 
 	private final CardRepository cardRepository;
-
-	public CardService(CardRepository cardRepository) {
-		this.cardRepository = cardRepository;
-	}
 
 	public List<Card> getCards() {
 		return cardRepository.findAll();
