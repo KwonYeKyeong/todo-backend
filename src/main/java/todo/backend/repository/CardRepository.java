@@ -1,11 +1,11 @@
 package todo.backend.repository;
 
-import java.util.*;
-
 import org.springframework.stereotype.Component;
-
 import todo.backend.entity.Card;
 import todo.backend.entity.CardStatus;
+import todo.backend.exception.NotFoundException;
+
+import java.util.*;
 
 
 @Component
@@ -31,9 +31,7 @@ public class CardRepository {
 
 	public Card update(Long id, Card card) {
 		if (!cachedCards.containsKey(id)) {
-			throw new RuntimeException(
-				String.format("card[id:%d] does not exits.", id)
-			);
+			throw new NotFoundException(id);
 		}
 
 		Card savedCard = cachedCards.get(id);
@@ -43,9 +41,7 @@ public class CardRepository {
 
 	public void delete(Long id) {
 		if(!cachedCards.containsKey(id)){
-			throw new RuntimeException(
-					String.format("card[id:%d] does not exits.", id)
-			);
+			throw new NotFoundException(id);
 		}
 
 		cachedCards.remove(id);
