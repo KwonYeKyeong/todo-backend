@@ -1,20 +1,17 @@
 package todo.backend.service;
 
-import java.util.List;
-
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import todo.backend.entity.Card;
 import todo.backend.repository.CardRepository;
 
+import java.util.List;
+
 @Service
+@RequiredArgsConstructor
 public class CardService {
 
 	private final CardRepository cardRepository;
-
-	public CardService(CardRepository cardRepository) {
-		this.cardRepository = cardRepository;
-	}
 
 	public List<Card> getCards() {
 		return cardRepository.findAll();
@@ -25,7 +22,6 @@ public class CardService {
 	}
 
 	public Card getCard(Long id) {
-		//validateCardOrThrow(id);
 		return cardRepository.findId(id);
 	}
 
@@ -37,11 +33,4 @@ public class CardService {
 		cardRepository.delete(id);
 	}
 
-//	private void validateCardOrThrow(Long id){
-//		if(!cardRepository.doesCardExist(id)){
-//			throw new ExceptionController(
-//					String.format("Card[id:%d] does not exits.",id )
-//			);
-//		}
-//	}
 }

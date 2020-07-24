@@ -1,27 +1,25 @@
 package todo.backend.repository;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Comparator;
-
-
 import org.springframework.stereotype.Component;
-
 import todo.backend.entity.Card;
 import todo.backend.entity.CardStatus;
 import todo.backend.exception.NotFoundException;
+
+import java.util.*;
 
 @Component
 public class CardRepository {
 
 	private final Map<Long, Card> cachedCards = new HashMap<>();
 
-	public Card findId(Long id){
+	public void validId(Long id){
 		if (!cachedCards.containsKey(id)) {
 			throw new NotFoundException(id);
 		}
+	}
+
+	public Card findId(Long id){
+		validId(id);
 		Card savedCard = cachedCards.get(id);
 		return savedCard;
 	}
@@ -29,27 +27,14 @@ public class CardRepository {
 	public List<Card> findAll() {
 
 		List<Card> cardList=new ArrayList<>(cachedCards.values());
-		System.out.println(cardList);
-		cardList.sort(new Comparator<Card>(){
-			@Override
-			public int compare(Card arg1, Card arg2){
-				int pri1=arg1.getPriority();
-				int pri2=arg2.getPriority();
-
-				if(pri1==pri2) return 0;
-				else if(pri1>pri2)return 1;
-				else return -1;
-			}
-		});
+		Collections.sort(cardList, (a,b)->a.getPriority()-b.getPriority());
 		return cardList;
-		//return new ArrayList<>(cachedCards.values());
 	}
 
 	public Card save(Card card) {
 		Integer priority=card.getPriority();
 		Long id = (long)cachedCards.size() + 1;
 		if (priority>3 || priority<0) {
-			//throw new NotFoundException(id);
 			throw new RuntimeException(
 					String.format("card[id:%d] 우선순위 안됨.", id)
 			);
@@ -63,18 +48,14 @@ public class CardRepository {
 
 
 	public Card update(Long id, Card card) {
-		if (!cachedCards.containsKey(id)) {
-			throw new NotFoundException(id);
-		}
+		validId(id);
 		Card savedCard = cachedCards.get(id);
 		savedCard.setStatus(card.getStatus());
 		return savedCard;
 	}
 
 	public void delete(Long id){
-		if (!cachedCards.containsKey(id)) {
-			throw new NotFoundException(id);
-		}
+		validId(id);
 		cachedCards.remove(id);
 	}
 

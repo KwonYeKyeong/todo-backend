@@ -1,26 +1,21 @@
 package todo.backend.controller;
 
-import java.util.List;
-
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
 import todo.backend.entity.Card;
-import todo.backend.exception.NotFoundException;
 import todo.backend.service.CardService;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @RestControllerAdvice
 @RequestMapping("/todo/cards")
 public class CardController {
 
 	private final CardService cardService;
-
-	public CardController(CardService cardService) {
-		this.cardService = cardService;
-	}
 
 	@GetMapping("")
 	@ResponseStatus(HttpStatus.OK)
