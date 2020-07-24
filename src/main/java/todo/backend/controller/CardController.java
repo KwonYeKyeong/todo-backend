@@ -12,6 +12,7 @@ import todo.backend.service.CardService;
 import javax.validation.Valid;
 
 @RestController
+@RestControllerAdvice
 @RequestMapping("/todo/cards")
 public class CardController {
 
@@ -52,9 +53,4 @@ public class CardController {
 		cardService.deleteCard(id);
 	}
 
-	@ExceptionHandler(value = {NotFoundException.class})
-	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	public String handleBadRequestException(NotFoundException e){
-		return e.getMessage();
-	}
 }
