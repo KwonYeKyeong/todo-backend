@@ -2,7 +2,6 @@ package todo.backend.service;
 
 import java.util.List;
 
-import org.apache.catalina.filters.AddDefaultCharsetFilter;
 import org.springframework.stereotype.Service;
 
 import todo.backend.entity.Card;
@@ -25,6 +24,11 @@ public class CardService {
 		return cardRepository.save(card);
 	}
 
+	public Card getCard(Long id) {
+		//validateCardOrThrow(id);
+		return cardRepository.findId(id);
+	}
+
 	public Card updateCard(Long id, Card card) {
 		return cardRepository.update(id, card);
 	}
@@ -33,4 +37,11 @@ public class CardService {
 		cardRepository.delete(id);
 	}
 
+//	private void validateCardOrThrow(Long id){
+//		if(!cardRepository.doesCardExist(id)){
+//			throw new ExceptionController(
+//					String.format("Card[id:%d] does not exits.",id )
+//			);
+//		}
+//	}
 }

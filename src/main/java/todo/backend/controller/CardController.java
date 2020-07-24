@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import todo.backend.entity.Card;
+import todo.backend.exception.NotFoundException;
 import todo.backend.service.CardService;
 
 import javax.validation.Valid;
@@ -24,6 +25,12 @@ public class CardController {
 	@ResponseStatus(HttpStatus.OK)
 	public List<Card> getCards() {
 		return cardService.getCards();
+	}
+
+	@GetMapping("/{id}")
+	@ResponseStatus(HttpStatus.OK)
+	public Card getCard(@PathVariable Long id){
+		return cardService.getCard(id);
 	}
 
 	@PostMapping("")
@@ -45,6 +52,9 @@ public class CardController {
 		cardService.deleteCard(id);
 	}
 
-
-
+	@ExceptionHandler(value = {NotFoundException.class})
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	public String handleBadRequestException(NotFoundException e){
+		return e.getMessage();
+	}
 }

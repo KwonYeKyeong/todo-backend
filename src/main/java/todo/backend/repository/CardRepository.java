@@ -11,12 +11,20 @@ import org.springframework.stereotype.Component;
 
 import todo.backend.entity.Card;
 import todo.backend.entity.CardStatus;
+import todo.backend.exception.NotFoundException;
 
 @Component
 public class CardRepository {
 
 	private final Map<Long, Card> cachedCards = new HashMap<>();
 
+	public Card findId(Long id){
+		if (!cachedCards.containsKey(id)) {
+			throw new NotFoundException(id);
+		}
+		Card savedCard = cachedCards.get(id);
+		return savedCard;
+	}
 
 	public List<Card> findAll() {
 
@@ -28,23 +36,20 @@ public class CardRepository {
 				int pri1=arg1.getPriority();
 				int pri2=arg2.getPriority();
 
-
 				if(pri1==pri2) return 0;
 				else if(pri1>pri2)return 1;
 				else return -1;
 			}
 		});
-
 		return cardList;
-
 		//return new ArrayList<>(cachedCards.values());
-
 	}
 
 	public Card save(Card card) {
 		Integer priority=card.getPriority();
 		Long id = (long)cachedCards.size() + 1;
 		if (priority>3 || priority<0) {
+			//throw new NotFoundException(id);
 			throw new RuntimeException(
 					String.format("card[id:%d] 우선순위 안됨.", id)
 			);
@@ -59,9 +64,7 @@ public class CardRepository {
 
 	public Card update(Long id, Card card) {
 		if (!cachedCards.containsKey(id)) {
-			throw new RuntimeException(
-				String.format("card[id:%d] does not exits.", id)
-			);
+			throw new NotFoundException(id);
 		}
 		Card savedCard = cachedCards.get(id);
 		savedCard.setStatus(card.getStatus());
@@ -70,10 +73,9 @@ public class CardRepository {
 
 	public void delete(Long id){
 		if (!cachedCards.containsKey(id)) {
-			throw new RuntimeException(
-					String.format("card[id:%d] does not exits.", id)
-			);
+			throw new NotFoundException(id);
 		}
 		cachedCards.remove(id);
 	}
+
 }
