@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
 import todo.backend.entity.Card;
-import todo.backend.exception.NotFoundException;
 import todo.backend.repository.CardRepository;
 
 @RequiredArgsConstructor
@@ -18,11 +17,11 @@ public class CardService {
 	public Card getCard(Long id) {
 		validateCardOrThrow(id);
 
-		return cardRepository.findById(id);
+		return cardRepository.findById(id).orElseThrow();
 	}
 
 	public List<Card> getCards() {
-		return cardRepository.findAllOrderByPriorityAsc();
+		return cardRepository.findAllByOrderByPriorityAsc();
 	}
 
 	public Card createCard(Card card) {
@@ -32,7 +31,10 @@ public class CardService {
 	public Card updateCard(Long id, Card card) {
 		validateCardOrThrow(id);
 
-		return cardRepository.update(id, card);
+		Card savedCard = cardRepository.findById(id).orElseThrow();
+		savedCard.setStatus(card.getStatus());
+
+		return cardRepository.save(savedCard);
 	}
 
 	public void deleteCard(Long id) {
@@ -42,8 +44,6 @@ public class CardService {
 	}
 
 	private void validateCardOrThrow(Long id) {
-		if (!cardRepository.doesCardExist(id)) {
-			throw new NotFoundException(id);
-		}
+		cardRepository.existsById(id);
 	}
 }
