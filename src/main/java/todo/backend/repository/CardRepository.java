@@ -1,12 +1,17 @@
 package todo.backend.repository;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.stereotype.Component;
+
 import todo.backend.entity.Card;
 import todo.backend.entity.CardStatus;
 import todo.backend.exception.NotFoundException;
-
-import java.util.*;
-
 
 @Component
 public class CardRepository {
@@ -40,7 +45,7 @@ public class CardRepository {
 	}
 
 	public void delete(Long id) {
-		if(!cachedCards.containsKey(id)){
+		if (!cachedCards.containsKey(id)) {
 			throw new NotFoundException(id);
 		}
 
