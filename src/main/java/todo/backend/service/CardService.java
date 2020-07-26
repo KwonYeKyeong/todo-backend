@@ -15,7 +15,7 @@ public class CardService {
 	private final CardRepository cardRepository;
 
 	public List<Card> getCards() {
-		return cardRepository.findAll();
+		return cardRepository.findAllByOrderByPriorityAsc();
 	}
 
 	public Card createCard(Card card) {
@@ -23,15 +23,17 @@ public class CardService {
 	}
 
 	public Card getCard(Long id) {
-		return cardRepository.findId(id);
+		return cardRepository.findById(id).orElseThrow();
 	}
 
 	public Card updateCard(Long id, Card card) {
-		return cardRepository.update(id, card);
+		Card savedCard = cardRepository.findById(id).orElseThrow();
+		savedCard.setStatus(card.getStatus());
+		return cardRepository.save(savedCard);
 	}
 
 	public void deleteCard(Long id) {
-		cardRepository.delete(id);
+		cardRepository.deleteById(id);
 	}
 
 }
