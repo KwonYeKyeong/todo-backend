@@ -1,37 +1,53 @@
 package todo.backend.entity;
 
-public class Card {
+import java.time.LocalDate;
 
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+@Entity
+public class Card implements Comparable {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@NotBlank
+	@Size(max = 20)
 	private String title;
 
+	@NotBlank
+	@Pattern(regexp = "(^[a-zA-Z가-힣0-9]{1,15}+$)")
+	private String assignee;
+
+	@Enumerated(EnumType.STRING)
 	private CardStatus status;
+
+	@Min(1)
+	@Max(3)
+	private Integer priority;
+
+	private LocalDate created = LocalDate.now();
 
 	// TODO: add created, updated
 	// TODO: add order
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public CardStatus getStatus() {
-		return status;
-	}
-
-	public void setStatus(CardStatus status) {
-		this.status = status;
+	@Override
+	public int compareTo(Object o) {
+		return this.getPriority().compareTo(((Card)o).getPriority());
 	}
 }
