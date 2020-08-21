@@ -14,6 +14,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import org.springframework.data.annotation.CreatedDate;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -34,11 +36,12 @@ public class Card {
 	private String assignee;
 
 	@Enumerated(EnumType.STRING)
-	private CardStatus status;
+	private CardStatus status = CardStatus.TODO;
 
 	@Min(1)
 	@Max(3)
 	private Integer priority;
 
-	private LocalDate created = LocalDate.now();
+	@CreatedDate
+	private LocalDate created;
 }

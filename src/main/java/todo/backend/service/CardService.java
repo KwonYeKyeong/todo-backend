@@ -28,6 +28,7 @@ public class CardService {
 		return cardRepository.save(card);
 	}
 
+	// @Transactional
 	public Card updateCard(Long id, Card card) {
 		validateCardOrThrow(id);
 
@@ -44,6 +45,11 @@ public class CardService {
 	}
 
 	private void validateCardOrThrow(Long id) {
-		cardRepository.existsById(id);
+		if (!cardRepository.existsById(id)) {
+			throw new RuntimeException(
+				String.format("card[id:%d] does not exits.", id)
+			);
+		}
 	}
+
 }
