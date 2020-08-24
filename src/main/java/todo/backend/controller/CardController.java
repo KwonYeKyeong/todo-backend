@@ -1,6 +1,7 @@
 package todo.backend.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -16,6 +17,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
+import todo.backend.controller.request.CreateCardRequest;
+import todo.backend.controller.request.UpdateCardRequest;
+import todo.backend.controller.response.CardResponse;
 import todo.backend.entity.Card;
 import todo.backend.service.CardService;
 
@@ -28,26 +32,43 @@ public class CardController {
 
 	@GetMapping("")
 	@ResponseStatus(HttpStatus.OK)
-	public List<Card> getCards() {
-		return cardService.getCards();
+	public List<CardResponse> getCards() {
+		return cardService.getCards()
+			.stream()
+			.map(CardResponse::create)
+			.collect(Collectors.toList());
 	}
 
 	@GetMapping("/{id}")
 	@ResponseStatus(HttpStatus.OK)
-	public Card getCard(@PathVariable Long id) {
-		return cardService.getCard(id);
+	public CardResponse getCard(@PathVariable Long id) {
+		Card card = cardService.getCard(id);
+		return CardResponse.create(card);
 	}
 
 	@PostMapping("")
 	@ResponseStatus(HttpStatus.CREATED)
-	public Card createCard(@RequestBody @Valid Card card) {
-		return cardService.createCard(card);
+	public CardResponse createCard(@RequestBody @Valid CreateCardRequest body) {
+		Card card = Card.builder()
+			.title(body.getTitle())
+			.assignee(body.getAssignee())
+			.priority(body.getPriority())
+			.build();
+
+		Card savedCard = cardService.createCard(card);
+
+		return CardResponse.create(savedCard);
 	}
 
 	@PutMapping("/{id}")
 	@ResponseStatus(HttpStatus.OK)
-	public Card updateCard(@PathVariable Long id, @RequestBody Card card) {
-		return cardService.updateCard(id, card);
+	public CardResponse updateCard(@PathVariable Long id, @RequestBody UpdateCardRequest body) {
+		Card card = new Card();
+		card.setStatus(body.getStatus());
+
+		Card updatedCard = cardService.updateCard(id, card);
+
+		return CardResponse.create(updatedCard);
 	}
 
 	@DeleteMapping("/{id}")

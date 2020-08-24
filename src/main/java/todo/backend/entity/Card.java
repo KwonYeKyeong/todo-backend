@@ -2,46 +2,53 @@ package todo.backend.entity;
 
 import java.time.LocalDate;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
 
 import org.springframework.data.annotation.CreatedDate;
 
+import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@NoArgsConstructor
 @Getter
 @Setter
 @Entity
 public class Card {
 
+	@Setter(AccessLevel.NONE)
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@NotBlank
-	@Size(max = 20)
+	@Column(length = 20, nullable = false)
 	private String title;
 
-	@Pattern(regexp = "^[가-힣a-zA-Z0-9]{1,15}+$")
+	@Column(length = 15, nullable = false)
 	private String assignee;
 
 	@Enumerated(EnumType.STRING)
 	private CardStatus status = CardStatus.TODO;
 
-	@Min(1)
-	@Max(3)
+	@Column(nullable = false)
 	private Integer priority;
 
 	@CreatedDate
 	private LocalDate created;
+
+	@Builder
+	private Card(String title, String assignee, Integer priority) {
+		this.title = title;
+		this.assignee = assignee;
+		this.priority = priority;
+	}
 }
+
