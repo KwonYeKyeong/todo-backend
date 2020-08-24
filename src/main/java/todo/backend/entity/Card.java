@@ -45,6 +45,7 @@ public class Card {
 	private Integer priority;
 
 	@CreatedDate
+	@Column(nullable = false)
 	private LocalDate created;
 
 	@Builder
