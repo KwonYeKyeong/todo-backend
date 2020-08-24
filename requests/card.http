@@ -1,3 +1,7 @@
+### get card by id
+GET /todo/cards/1 HTTP/1.1
+Host: localhost:8088
+
 ### get cards
 GET /todo/cards HTTP/1.1
 Host: localhost:8088
@@ -8,7 +12,9 @@ Content-Type: application/json; charset=utf-8
 Host: localhost:8088
 
 {
-  "title": "study react1"
+  "title": "study react1",
+  "assignee": "Kim",
+  "priority": 1
 }
 
 ### update card
@@ -19,3 +25,7 @@ Host: localhost:8088
 {
   "status": "DONE"
 }
+
+### delete card
+DELETE /todo/cards/1
+Host: localhost:8088

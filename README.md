@@ -24,3 +24,6 @@ API server for todo web application
 ```bash
 ./gradlew bootRun
 ```
+
+### swagger-ui
+- local: http://localhost:8088/swagger-ui.html
