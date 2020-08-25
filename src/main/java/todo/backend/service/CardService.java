@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
 import todo.backend.entity.Card;
+import todo.backend.exception.NotFoundException;
 import todo.backend.repository.CardRepository;
 
 @RequiredArgsConstructor
@@ -46,7 +47,7 @@ public class CardService {
 
 	private void validateCardOrThrow(Long id) {
 		if (!cardRepository.existsById(id)) {
-			throw new RuntimeException(
+			throw new NotFoundException(
 				String.format("card[id:%d] does not exits.", id)
 			);
 		}
