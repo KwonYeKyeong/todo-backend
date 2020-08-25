@@ -15,12 +15,15 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @NoArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Builder
 @Getter
 @Setter
 @Entity
@@ -38,6 +41,7 @@ public class Card {
 	@Column(length = 15, nullable = false)
 	private String assignee;
 
+	@Builder.Default
 	@Enumerated(EnumType.STRING)
 	private CardStatus status = CardStatus.TODO;
 
@@ -48,11 +52,5 @@ public class Card {
 	@Column(nullable = false)
 	private LocalDate created;
 
-	@Builder
-	private Card(String title, String assignee, Integer priority) {
-		this.title = title;
-		this.assignee = assignee;
-		this.priority = priority;
-	}
 }
 

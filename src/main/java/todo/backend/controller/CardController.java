@@ -63,8 +63,9 @@ public class CardController {
 	@PutMapping("/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public CardResponse updateCard(@PathVariable Long id, @RequestBody UpdateCardRequest body) {
-		Card card = new Card();
-		card.setStatus(body.getStatus());
+		Card card = Card.builder()
+			.status(body.getStatus())
+			.build();
 
 		Card updatedCard = cardService.updateCard(id, card);
 
